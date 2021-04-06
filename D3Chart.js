@@ -13,15 +13,30 @@ export default class D3Chart {
       .select(element)
       .append("svg")
       .attr("width", 500)
-      .attr("height", 500);
-
-    svg
-      .append("rect")
-      .attr("fill", "cyan")
-      .attr("x", 50)
-      .attr("y", 50)
-      .attr("width", 100)
       .attr("height", 400);
+
+    d3.json("./api/test").then((data) => {
+      console.log(data);
+      const rect = svg.selectAll("rect").data(data);
+
+      const x = d3
+        .scaleBand()
+        .paddingInner(0.2)
+        .domain(data.map((d) => d.name))
+        .range([0, 500]);
+      const y = d3
+        .scaleLinear()
+        .domain([0, 1.05 * d3.max(data, (d) => d.height)])
+        .range([400, 0]);
+
+      rect
+        .join("rect")
+        .attr("fill", "cyan")
+        .attr("x", (d, i) => x(d.name))
+        .attr("y", (d) => y(d.height))
+        .attr("width", x.bandwidth())
+        .attr("height", (d) => 400 - y(d.height));
+    });
   }
 }
 
