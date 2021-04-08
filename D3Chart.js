@@ -41,13 +41,11 @@ export default class D3Chart {
 
     d3.json("./api/test").then((data) => {
       this.data = data;
-      let gender = ["male", "female"];
-      let count = 1;
-      this.update(gender[0]);
-      d3.interval(() => {
-        this.update(gender[count % 2]);
-        count++;
-      }, 2000);
+      this.update("male");
+      // d3.interval(() => {
+      //   this.update(gender[count % 2]);
+      //   count++;
+      // }, 2000);
     });
   }
 

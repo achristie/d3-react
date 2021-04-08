@@ -11,16 +11,28 @@ import D3Chart from "./D3Chart";
 const ChartWrapper = () => {
   const chartArea = useRef(null);
   const [chart, setChart] = useState(null);
+  const [gender, setGender] = useState("male");
 
   useEffect(() => {
+    console.log("called");
     if (!chart) {
       setChart(new D3Chart(chartArea.current));
     } else {
+      chart.update(gender);
       // chart.update();
     }
-  }, [chart]);
+  }, [gender]);
 
-  return <div className="chart-area" ref={chartArea}></div>;
+  return (
+    <>
+      <select value={gender} onChange={(e) => setGender(e.target.value)}>
+        <option value="male">Men</option>
+        <option value="female">Women</option>
+      </select>
+
+      <div className="chart-area" ref={chartArea}></div>
+    </>
+  );
 };
 
 export default ChartWrapper;
