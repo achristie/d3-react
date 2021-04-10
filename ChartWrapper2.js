@@ -16,8 +16,9 @@ const ChartWrapper = ({ data }) => {
     if (!chart) {
       setChart(new scatter(chartArea.current, data));
     } else {
+      chart.update(data);
     }
-  }, []);
+  }, [data]);
 
   return <div className="chart-area" ref={chartArea}></div>;
 };

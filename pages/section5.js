@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from "react";
 import ChartWrapper from "../ChartWrapper2";
+import Table from "../Table";
 import { json } from "d3";
 
 export default function Home() {
@@ -16,6 +17,14 @@ export default function Home() {
       .then((d) => setData(d))
       .catch((error) => console.log(error));
   }, []);
-  return data.length > 0 ? <ChartWrapper data={data} /> : <h1> No Data </h1>;
+
+  return data.length > 0 ? (
+    <>
+      <ChartWrapper data={data} />
+      <Table data={data} setData={setData} />
+    </>
+  ) : (
+    <h1> No Data </h1>
+  );
 }
 

@@ -36,14 +36,16 @@ export default class scatter {
   }
 
   update(data) {
-    const xAxis = d3.axisBottom(this.x);
-    const yAxis = d3.axisLeft(this.y);
-
-    this.xAxisGroup.call(xAxis);
-    this.yAxisGroup.call(yAxis);
+    const t = d3.transition(1000);
 
     this.x.domain([0, d3.max(data, (d) => +d.age)]);
     this.y.domain([0, d3.max(data, (d) => +d.height)]);
+
+    const xAxis = d3.axisBottom(this.x);
+    const yAxis = d3.axisLeft(this.y);
+    this.xAxisGroup.transition(t).call(xAxis);
+    this.yAxisGroup.transition(t).call(yAxis);
+
     const circle = this.g.selectAll("circle").data(data, (d) => d.name);
 
     circle
