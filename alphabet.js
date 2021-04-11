@@ -8,7 +8,21 @@
 import * as d3 from "d3";
 
 const height = 400;
-const width = 600;
+const width = 800;
+
+function returnRandomInvestor() {
+  const list = [
+    "Fidelity Management & Research",
+    "Dodge & Cox",
+    "Janus Capital Management",
+    "Blackrock Advisors",
+    "Capital World",
+    "Vanguard",
+  ];
+
+  const rnd = Math.floor(Math.random() * 6);
+  return list[rnd];
+}
 
 function randomLetters() {
   return d3
@@ -23,8 +37,8 @@ function sleep(ms) {
 
 async function createChart(svg) {
   while (true) {
-    const text = svg.selectAll("text").data(randomLetters(), (d) => d);
-    const t = d3.transition(1000);
+    const text = svg.selectAll("text").data(returnRandomInvestor(), (d) => d);
+    const t = d3.transition(750);
 
     text.join(
       (enter) =>
